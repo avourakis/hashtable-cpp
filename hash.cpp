@@ -66,11 +66,37 @@ void hash_table::print_table()
     for(int i = 0; i < table_size; i++)
     {
         std::cout << "----------------------" << std::endl;
+        std::cout << "Index: " << i << std::endl;
         std::cout << "First Name: " << table[i]->first_name << std::endl;
         std::cout << "Last Name: " << table[i]->last_name << std::endl;
         std::cout << "Items: " << count_items(i) << std::endl;
         std::cout << "----------------------" << std::endl;
     }
+}
+
+void hash_table::print_items(int index)
+{
+    // Prints all the items in the given index
+    
+    if(table[index]->first_name == "empty")
+        std::cout << "Index is empty" << std::endl;
+    else
+    {
+        item* ptr = table[index];
+        std::cout << "----------------------" << std::endl;
+        std::cout << "First Name: " << ptr->first_name << std::endl;
+        std::cout << "Last Name: " << ptr->last_name << std::endl;
+        std::cout << "" << std::endl;
+        while(ptr->next != NULL)
+        {
+            ptr = ptr->next;
+            std::cout << "First Name: " << ptr->first_name << std::endl;
+            std::cout << "Last Name: " << ptr->last_name << std::endl;
+            std::cout << "" << std::endl;
+        }
+        std::cout << "----------------------" << std::endl;
+    }
+
 }
 
 int hash_table::count_items(int index)
@@ -91,6 +117,53 @@ int hash_table::count_items(int index)
         return count;
     }
 }
+
+void hash_table::delete_item(std::string key)
+{
+    // Given a key, it deletes the item associated with it from the table
+    
+    int index = hash_function(key);
+    if(table[index]->first_name == key) // Key is found first on the list
+    {
+        if(table[index]->next == NULL)
+        {
+            table[index]->first_name = "empty";
+            table[index]->last_name = "empty";
+        }
+        else
+        {
+            item* ptr = table[index]->next; 
+            table[index] = NULL;
+            delete table[index];
+            table[index] = ptr;
+        }
+    } 
+    else // Key is not first on the list
+    {   
+        item* ptr = table[index];
+        item* previous_ptr = table[index];
+        while(ptr->next != NULL)
+        {
+            ptr = ptr->next; // Move to next item
+
+            if(ptr->first_name == key)
+            {
+                // delete this item and assing next of previous pointer to the current next
+                item* next_ptr = ptr->next; 
+                ptr = NULL;
+                delete ptr;
+                previous_ptr->next = next_ptr;
+                return;
+            } 
+
+            previous_ptr = ptr;
+        }
+        
+        std::cout << "\"" << key << "\"" << " was not found" << std::endl;
+    }
+}
+
+
 
 
 
