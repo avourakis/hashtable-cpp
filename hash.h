@@ -7,11 +7,18 @@
 class hash_table
 {
     public:
-
+        hash_table(); // constructor
 
     private:
+        struct item // buckets to store data. Linked list
+        {
+            std::string first_name;
+            std::string last_name;
+            item* next;
+        };
+
+        static const int table_size = 10; // size of hash table
+        item* table[table_size]; // array of linked list
 };
-
-
 
 #endif
