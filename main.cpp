@@ -9,7 +9,8 @@ int main()
     std::string last_name = "Vourakis";
     hash_table test;
 
-
+    test.add_item(first_name, last_name);
+    
     return 0;
 
 }
