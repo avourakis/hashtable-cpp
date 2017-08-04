@@ -11,6 +11,7 @@ class hash_table
         int hash_function(std::string key);
         void add_item(std::string first_name, std::string last_name);
         void print_table();
+        int count_items(int index);
 
     private:
         struct item // buckets to store data. Linked list

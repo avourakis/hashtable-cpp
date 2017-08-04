@@ -46,7 +46,7 @@ void hash_table::add_item(std::string first_name, std::string last_name)
     {
         item* ptr = table[index];
         item* new_item = new item;
-        while(table[index]->first_name != "empty")
+        while(ptr->next != NULL)
         {
             ptr = ptr->next;
         }
@@ -61,20 +61,36 @@ void hash_table::add_item(std::string first_name, std::string last_name)
 
 void hash_table::print_table()
 {
+    // Prints the data in the array along with number of items it contains.
+
     for(int i = 0; i < table_size; i++)
     {
         std::cout << "----------------------" << std::endl;
         std::cout << "First Name: " << table[i]->first_name << std::endl;
         std::cout << "Last Name: " << table[i]->last_name << std::endl;
+        std::cout << "Items: " << count_items(i) << std::endl;
         std::cout << "----------------------" << std::endl;
     }
 }
 
-
-
-
-
-
+int hash_table::count_items(int index)
+{
+    // Returns the number of items found at an specific index in the array
+    int count = 0;
+    if(table[index]->first_name == "empty")
+        return count;
+    else
+    {
+        count++;
+        item* ptr = table[index];
+        while(ptr->next != NULL)
+        {
+            count++;
+            ptr = ptr->next;
+        }
+        return count;
+    }
+}
 
 
 
