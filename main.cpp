@@ -10,6 +10,8 @@ int main()
     hash_table test;
 
     test.add_item(first_name, last_name);
+
+    test.print_table();
     
     return 0;
 

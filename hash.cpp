@@ -38,16 +38,37 @@ void hash_table::add_item(std::string first_name, std::string last_name)
     
     if(table[index]->first_name == "empty")
     {
-        // do something
+        table[index]->first_name = first_name;
+        table[index]->last_name = last_name;
+        table[index]->next = NULL;
     } 
     else
     {
-        // do something
-    }
+        item* ptr = table[index];
+        item* new_item = new item;
+        while(table[index]->first_name != "empty")
+        {
+            ptr = ptr->next;
+        }
 
+        new_item->first_name = first_name;
+        new_item->last_name = last_name;
+        new_item->next = NULL;
+
+        ptr->next = new_item;
+    }
 }
 
-
+void hash_table::print_table()
+{
+    for(int i = 0; i < table_size; i++)
+    {
+        std::cout << "----------------------" << std::endl;
+        std::cout << "First Name: " << table[i]->first_name << std::endl;
+        std::cout << "Last Name: " << table[i]->last_name << std::endl;
+        std::cout << "----------------------" << std::endl;
+    }
+}
 
 
 
